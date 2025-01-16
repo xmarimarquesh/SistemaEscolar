@@ -18,3 +18,4 @@ C:\Users\disrct\Desktop\Mari\C#\SistemaEscolar\Front\obj\Debug\net9.0\refint\Fro
 C:\Users\disrct\Desktop\Mari\C#\SistemaEscolar\Front\obj\Debug\net9.0\Front.pdb
 C:\Users\disrct\Desktop\Mari\C#\SistemaEscolar\Front\obj\Debug\net9.0\Front.genruntimeconfig.cache
 C:\Users\disrct\Desktop\Mari\C#\SistemaEscolar\Front\obj\Debug\net9.0\ref\Front.dll
+C:\Users\disrct\Desktop\Mari\C#\SistemaEscolar\Front\obj\Debug\net9.0\Front.sourcelink.json

@@ -4,16 +4,10 @@ using System.Collections.Generic;
 using Model;
 using System;
 
-
-IRepository<Aluno> alunoRepo = null;
-IRepository<Professor> profRepo = null;
-IRepository<Diciplina> diciRepo = null;
-IRepository<Turma> turmaRepo = null;
-
-alunoRepo = new AlunoFakeRepository();
-profRepo = new ProfessorFakeRepository();
-diciRepo = new DiciplinaFakeRepository();
-turmaRepo = new TurmaFakeRepository();
+IRepository<Aluno> alunoRepo = new AlunoRepository();
+IRepository<Professor> profRepo = new ProfessorRepository();
+IRepository<Disciplina> diciRepo = new DisciplinaRepository();
+IRepository<Turma> turmaRepo = new TurmaRepository();
 
 while (true)
 {
@@ -24,11 +18,11 @@ while (true)
             1 - Cadastrar Professor
             2 - Cadastrar Aluno
             3 - Cadastrar Turma
-            4 - Cadastrar Diciplina
+            4 - Cadastrar Disciplina
             5 - Ver Professores
             6 - Ver Alunos
             7 - Ver Turmas
-            8 - Ver Diciplinas
+            8 - Ver Disciplinas
             9 - Sair
         """);
 
@@ -43,31 +37,21 @@ while (true)
                 prof.Nome = ReadLine();
                 WriteLine("Insira a formação do professor: ");
                 prof.Formacao = ReadLine();
-                WriteLine("Quantidade de diciplinas: ");
-                int qtd_dici = int.Parse(ReadLine());
-                List<Diciplina> dicis = [];
-                for(int i = 0; i<qtd_dici; i++){
-                    WriteLine("Descicao da diciplina: ");
-                    string desc = ReadLine();
-                    WriteLine("Periodo da diciplina: ");
-                    int per = int.Parse(ReadLine());
+                WriteLine("ID da disciplina: ");
+                prof.IDDisciplina = ReadLine();
 
-                    dicis.Add(new(){descricao = desc, periodo = per});
-                }
-
-                prof.diciplinas = dicis;
                 profRepo.Add(prof);
 
                 break;
             case 2:
                 Aluno aluno = new();
 
-                WriteLine("Insira o id do aluno: ");
-                aluno.Id = int.Parse(ReadLine());
                 WriteLine("Insira o nome do aluno: ");
                 aluno.Nome = ReadLine();
                 WriteLine("Insira a idade do aluno: ");
                 aluno.Idade = int.Parse(ReadLine());
+                WriteLine("Insira o ID da turma do aluno: ");
+                aluno.IDTurma = ReadLine();
 
                 alunoRepo.Add(aluno);
 
@@ -78,88 +62,63 @@ while (true)
 
                 Turma turma = new();
 
-                WriteLine("Insira o nome do Turma: ");
+                WriteLine("Insira o nome da Turma: ");
                 turma.descricao = ReadLine();
-                WriteLine("Insira a quantidade de alunos: ");
-                int qtd_alunos = int.Parse(ReadLine());
+                WriteLine("Insira o ID do professor da Turma: ");
+                turma.IDProf = ReadLine();
 
                 var al = alunoRepo.All;
 
-                for(int i=0; i<qtd_alunos; i++)
-                {
-                    foreach (var a in al)
-                    {
-                        WriteLine($"""
-                            ID-{a.Id} | {a.Nome} - {a.Idade}
-                            -------------------
-                        """);
-                    }
-                    WriteLine("Insira o id do aluno: ");
-                    int id = int.Parse(ReadLine());
-
-                    foreach (var b in al)
-                    {
-                        if (b.Id == id){
-                            WriteLine("SIMM" + b.Id);
-                            alunoss.Add(new(){Id = b.Id, Nome = b.Nome, Idade = b.Idade});
-                        }
-                    }
-
-                    Clear();
-                }
-
-                turma.alunos = alunoss;
                 turmaRepo.Add(turma);
+                
 
                 break;
             case 4:
-                Diciplina diciplina = new();
+                Disciplina disciplina = new();
 
-                WriteLine("Insira a descricao da diciplina: ");
-                diciplina.descricao = ReadLine();
-                WriteLine("Insira o periodo da diciplina: ");
-                diciplina.periodo = int.Parse(ReadLine());
+                WriteLine("Insira a descricao da disciplina: ");
+                disciplina.descricao = ReadLine();
+                WriteLine("Insira o periodo da disciplina: ");
+                disciplina.periodo = int.Parse(ReadLine());
 
-                diciRepo.Add(diciplina);
+                diciRepo.Add(disciplina);
                 break;
             case 5:
                 var profs = profRepo.All;
                 foreach (var pro in profs)
                 {
                     WriteLine($"""
-                        {pro.Nome} - {pro.Formacao}
+                        {pro.Nome} - {pro.Formacao} | {pro.IDDisciplina}
                         ---
                     """);
-                    WriteLine("Diciplinas: ");
-                    foreach(var d in pro.diciplinas){
-                        WriteLine($"""
-                        {d.descricao} - {d.periodo}° periodo
-                        ----------------------
-                    """);
-                    }
                 }
+                
                 break;
             case 6:
-                var alunos = alunoRepo.All;
-                foreach (var alu in alunos)
-                {
-                    WriteLine($"""
-                        {alu.Id}) {alu.Nome} - {alu.Idade}
-                        -------------------
-                    """);
-                }
+                alunoRepo.seeAll();
                 break;
             case 7:
                 var turmas = turmaRepo.All;
+                var alu = alunoRepo.All;
+                var profe = profRepo.All;
+
                 foreach (var tur in turmas)
                 {
                     WriteLine($">>> {tur.descricao} -------------------");
+                    foreach(var pr in profe){
+                        if(tur.IDProf == pr.ID)
+                            WriteLine("Professor: "+pr.Nome);
+                    }
+                    WriteLine("IDT: "+tur.IDProf);
                     WriteLine("Alunos:");
-                    foreach(var alun in tur.alunos){
-                        WriteLine($"""
-                            ID-{alun.Id} | {alun.Nome} - {alun.Idade}
-                            -------------------
-                        """);
+
+                    foreach(var alun in alu){
+                        if(alun.IDTurma == tur.ID){
+                            WriteLine($"""
+                                ID-{alun.Id} | {alun.Nome} - {alun.Idade}
+                                -------------------
+                            """);
+                        }
                     }
                 }
                 break;
