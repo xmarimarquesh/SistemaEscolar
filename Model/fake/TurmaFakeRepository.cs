@@ -9,22 +9,21 @@ public class TurmaFakeRepository : IRepository<Turma>
     {
         turmas.Add(new (){
             descricao = "DTA 2",
-            alunos = [new ()
-            {
-                Id = 1,
-                Nome = "Mariana",
-                Idade = 12
-            }, new() {
-                Id = 6,
-                Nome = "Juliana",
-                Idade = 10
-            }],
-            
         });
     }
 
     public List<Turma> All => turmas;
 
+    public void seeAll()
+    {
+        throw new System.NotImplementedException();
+    }
+    
     public void Add(Turma obj)
         => turmas.Add(obj);
+
+    public Turma getById(string id)
+    {
+        throw new System.NotImplementedException();
+    }
 }

@@ -1,12 +1,15 @@
+using System.Data;
 using Database;
 
 namespace Model;
 
-public class Diciplina : DatabaseObject
+public class Disciplina : DatabaseObject
 {   
     public string descricao { get; set; }
+    public string ID { get; set; }
     public int periodo { get; set; }
 
+    public Disciplina() => ID = GetNewId;
     protected override void LoadFrom(string[] data)
     {
         descricao = data[0];

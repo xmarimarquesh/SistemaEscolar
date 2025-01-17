@@ -9,4 +9,8 @@ public interface IRepository<T>
     {
         List<T> All { get;}
         void Add(T obj);
+
+        T getById(string id);
+
+        void seeAll();
     }

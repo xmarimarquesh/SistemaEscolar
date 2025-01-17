@@ -5,32 +5,24 @@ namespace Model;
 
 public class Turma : DatabaseObject
 {
-    public string id_alunos { get; set; }
-    public List<Aluno> alunos { get; set; }
+    public string ID { get; set; }
     public string descricao { get; set; }
+    public string IDProf { get; set; }
+
+    public Turma() => ID = GetNewId;
 
     protected override void LoadFrom(string[] data)
     {   
-        id_alunos = data[0];
-
-        AlunoFakeRepository alunoRepo = new AlunoFakeRepository();
-        List<Aluno> alunos_list = [];
-
-        foreach(var a in id_alunos){
-            Aluno aluno = alunoRepo.findById(int.Parse(a.ToString()));
-            if(aluno != null){
-                alunos_list.Add(aluno);
-            }       
-        }
-
-        alunos = alunos_list;
+        ID = data[0];
         descricao = data[1];
+        IDProf = data[2];
     }
 
     protected override string[] SaveTo()
         => new string[]
             {
+                ID,
                 descricao,
-                id_alunos
+                IDProf
             };
 }
