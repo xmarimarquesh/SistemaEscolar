@@ -5,4 +5,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="6.0.0" />
+    <PackageReference Include="System.data.SqlClient" Version="4.9.0" />
+  </ItemGroup>
+
 </Project>

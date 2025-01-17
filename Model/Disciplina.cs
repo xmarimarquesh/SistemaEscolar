@@ -12,14 +12,26 @@ public class Disciplina : DatabaseObject
     public Disciplina() => ID = GetNewId;
     protected override void LoadFrom(string[] data)
     {
-        descricao = data[0];
-        periodo = int.Parse(data[1]);
+        ID = data[0];
+        descricao = data[1];
+        periodo = int.Parse(data[2]);
     }
 
     protected override string[] SaveTo()
         => new string[]
         {
+            ID,
             descricao,
             periodo.ToString()
         };
+
+    protected override void loadFromSqlRow(DataRow data)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    protected override string saveToSql()
+    {
+        throw new System.NotImplementedException();
+    }
 }

@@ -4,11 +4,11 @@ using Database;
 using static System.Console;
 using System.IO;
 
-public class AlunoRepository : IRepository<Aluno>
+public class AlunoFileRepository : IRepository<Aluno>
 {
     private DB<Aluno> data;
 
-    public AlunoRepository()
+    public AlunoFileRepository()
     {
         data = DB<Aluno>.App;
         List<Aluno> alunos = data.All;
@@ -37,7 +37,7 @@ public class AlunoRepository : IRepository<Aluno>
 
         WriteLine("ALUNOS: ");
 
-        IRepository<Turma> turmaRepo = new TurmaRepository();
+        IRepository<Turma> turmaRepo = new TurmaFileRepository();
 
         foreach (var aluno in alunos)
         {
@@ -46,12 +46,12 @@ public class AlunoRepository : IRepository<Aluno>
             if(turma != null){
                 WriteLine($"""
                     ID={aluno.Id}) | {aluno.Nome} - IDADE {aluno.Idade} | TURMA {turma.descricao}
-                    --------------------------------------
+                    ----------------------------------------------------------------------------
                 """);
             } else {
                 WriteLine($"""
                     ID={aluno.Id}) | {aluno.Nome} - IDADE {aluno.Idade} | TURMA (não identificado)
-                    --------------------------------------
+                    ----------------------------------------------------------------------------
                 """);
             }
         }

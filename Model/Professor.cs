@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using Database;
 
 namespace Model;
@@ -19,6 +20,7 @@ public class Professor : DatabaseObject
         ID = data[0];
         Nome = data[1];
         Formacao = data[2];
+        IDDisciplina = data[3];
     }
 
     protected override string[] SaveTo()
@@ -26,6 +28,17 @@ public class Professor : DatabaseObject
             {
                 ID.ToString(),
                 Nome,
-                Formacao
+                Formacao,
+                IDDisciplina
             };
+
+    protected override void loadFromSqlRow(DataRow data)
+    {
+        throw new NotImplementedException();
+    }
+
+    protected override string saveToSql()
+    {
+        throw new NotImplementedException();
+    }
 }

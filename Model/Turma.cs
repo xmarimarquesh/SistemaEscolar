@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Data;
 using Database;
 
 namespace Model;
@@ -25,4 +26,14 @@ public class Turma : DatabaseObject
                 descricao,
                 IDProf
             };
+
+    protected override void loadFromSqlRow(DataRow data)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    protected override string saveToSql()
+    {
+        throw new System.NotImplementedException();
+    }
 }

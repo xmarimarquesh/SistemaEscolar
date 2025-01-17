@@ -1,3 +1,4 @@
+using System.Data;
 using Database;
 
 namespace Model;
@@ -25,6 +26,17 @@ public class Aluno : DatabaseObject
                 Id.ToString(),
                 Nome,
                 Idade.ToString(),
-                IDTurma.ToString()
+                IDTurma
             };
+
+    protected override void loadFromSqlRow(DataRow data)
+    {
+        Id = data[0].ToString();
+        Nome = data[1].ToString();
+        Idade = int.Parse(data[2].ToString());
+        IDTurma = data[3].ToString();
+    }
+
+    protected override string saveToSql()
+        => $"INSERT INTO [Aluno] VALUES ('{Id}','{Nome}', {Idade}, '{IDTurma}')";
 }

@@ -4,11 +4,11 @@ using Database;
 using System.IO;
 using static System.Console;
 
-public class DisciplinaRepository : IRepository<Disciplina>
+public class DisciplinaFileRepository : IRepository<Disciplina>
 {
     private DB<Disciplina> data;
 
-    public DisciplinaRepository()
+    public DisciplinaFileRepository()
     {
         data = DB<Disciplina>.App;
         List<Disciplina> disciplinas = data.All;
@@ -26,7 +26,7 @@ public class DisciplinaRepository : IRepository<Disciplina>
     public Disciplina getById(string id)
     {
         foreach (var disciplina in data.All){
-            if (disciplina.ID == id)
+            if (disciplina.ID.Equals(id))
                 return disciplina;
         }
         return null;

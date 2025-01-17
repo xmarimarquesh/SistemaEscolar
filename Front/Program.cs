@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using Model;
 using System;
 
-IRepository<Aluno> alunoRepo = new AlunoRepository();
-IRepository<Professor> profRepo = new ProfessorRepository();
-IRepository<Disciplina> diciRepo = new DisciplinaRepository();
-IRepository<Turma> turmaRepo = new TurmaRepository();
+IRepository<Aluno> alunoRepo = new AlunoFileRepository();
+IRepository<Professor> profRepo = new ProfessorFileRepository();
+IRepository<Disciplina> diciRepo = new DisciplinaFileRepository();
+IRepository<Turma> turmaRepo = new TurmaFileRepository();
 
 while (true)
 {
@@ -37,6 +37,10 @@ while (true)
                 prof.Nome = ReadLine();
                 WriteLine("Insira a formação do professor: ");
                 prof.Formacao = ReadLine();
+
+                WriteLine("DISCIPLINAS DISPONÍVEIS: ");
+                diciRepo.seeAll();
+
                 WriteLine("ID da disciplina: ");
                 prof.IDDisciplina = ReadLine();
 
@@ -50,6 +54,10 @@ while (true)
                 aluno.Nome = ReadLine();
                 WriteLine("Insira a idade do aluno: ");
                 aluno.Idade = int.Parse(ReadLine());
+
+                WriteLine("Turmas Diponíveis: ");
+                turmaRepo.seeAll();
+
                 WriteLine("Insira o ID da turma do aluno: ");
                 aluno.IDTurma = ReadLine();
 
@@ -64,6 +72,10 @@ while (true)
 
                 WriteLine("Insira o nome da Turma: ");
                 turma.descricao = ReadLine();
+
+                WriteLine("Professores: ");
+                profRepo.seeAll();
+
                 WriteLine("Insira o ID do professor da Turma: ");
                 turma.IDProf = ReadLine();
 
@@ -84,53 +96,16 @@ while (true)
                 diciRepo.Add(disciplina);
                 break;
             case 5:
-                var profs = profRepo.All;
-                foreach (var pro in profs)
-                {
-                    WriteLine($"""
-                        {pro.Nome} - {pro.Formacao} | {pro.IDDisciplina}
-                        ---
-                    """);
-                }
-                
+                profRepo.seeAll();
                 break;
             case 6:
                 alunoRepo.seeAll();
                 break;
             case 7:
-                var turmas = turmaRepo.All;
-                var alu = alunoRepo.All;
-                var profe = profRepo.All;
-
-                foreach (var tur in turmas)
-                {
-                    WriteLine($">>> {tur.descricao} -------------------");
-                    foreach(var pr in profe){
-                        if(tur.IDProf == pr.ID)
-                            WriteLine("Professor: "+pr.Nome);
-                    }
-                    WriteLine("IDT: "+tur.IDProf);
-                    WriteLine("Alunos:");
-
-                    foreach(var alun in alu){
-                        if(alun.IDTurma == tur.ID){
-                            WriteLine($"""
-                                ID-{alun.Id} | {alun.Nome} - {alun.Idade}
-                                -------------------
-                            """);
-                        }
-                    }
-                }
+                turmaRepo.seeAll();
                 break;
             case 8:
-                var diciplis = diciRepo.All;
-                foreach (var dic in diciplis)
-                {
-                    WriteLine($"""
-                        {dic.descricao} - {dic.periodo}° período
-                        -------------------
-                    """);
-                }
+                diciRepo.seeAll();
                 break;
             case 9:
                 return;

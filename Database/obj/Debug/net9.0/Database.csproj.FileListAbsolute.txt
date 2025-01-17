@@ -10,3 +10,4 @@ C:\Users\disrct\Desktop\Mari\C#\SistemaEscolar\Database\obj\Debug\net9.0\refint\
 C:\Users\disrct\Desktop\Mari\C#\SistemaEscolar\Database\obj\Debug\net9.0\Database.pdb
 C:\Users\disrct\Desktop\Mari\C#\SistemaEscolar\Database\obj\Debug\net9.0\ref\Database.dll
 C:\Users\disrct\Desktop\Mari\C#\SistemaEscolar\Database\obj\Debug\net9.0\Database.sourcelink.json
+C:\Users\disrct\Desktop\Mari\C#\SistemaEscolar\Database\obj\Debug\net9.0\Database.csproj.AssemblyReference.cache

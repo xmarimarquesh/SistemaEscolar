@@ -3,11 +3,11 @@ using Model;
 using Database;
 using static System.Console;
 
-public class ProfessorRepository : IRepository<Professor>
+public class ProfessorFileRepository : IRepository<Professor>
 {
     private DB<Professor> data;
 
-    public ProfessorRepository()
+    public ProfessorFileRepository()
     {
         data = DB<Professor>.App;
         List<Professor> professors = data.All;
@@ -24,7 +24,11 @@ public class ProfessorRepository : IRepository<Professor>
 
     public Professor getById(string id)
     {
-        throw new System.NotImplementedException();
+        foreach (var prof in data.All){
+            if (prof.ID == id)
+                return prof;
+        }
+        return null;
     }
 
     public void seeAll(){
@@ -32,12 +36,12 @@ public class ProfessorRepository : IRepository<Professor>
 
         WriteLine("PROFESSORES: ");
 
-        IRepository<Disciplina> disciRepo = new DisciplinaRepository();
+        IRepository<Disciplina> disciRepo = new DisciplinaFileRepository();
         
         foreach (var prof in professors)
         {
             var disci = disciRepo.getById(prof.IDDisciplina);
-            
+
             WriteLine($"""
                 ID={prof.ID}) | {prof.Nome} - FORMACAO {prof.Formacao} | DISCIPLINA {disci.descricao}
                 --------------------------------------
